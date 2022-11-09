@@ -2,4 +2,4 @@
 
 ## Наши бургеры просто космос!
 
-[https://ya.ru/]
+При поддержке: https://practicum.yandex.ru/
