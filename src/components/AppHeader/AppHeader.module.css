@@ -4,7 +4,7 @@
   background: #1C1C21;
   box-sizing: border-box;
   box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-  border: 1px solid teal;  
+  border: 1px solid teal;
 }
 
 .nav {
@@ -13,6 +13,10 @@
   display: flex;
   align-items: center;
   border: 1px solid red;
+}
+
+.nav:last-of-type {
+  display: flex;
 }
 
 .logo {
@@ -29,3 +33,18 @@
   cursor: pointer;
   border: 1px solid blue;
 }
+
+.link_active {
+  color: #F2F2F3;
+}
+
+.link:last-of-type {
+  border: 3px solid yellow;
+  display: flex;
+  flex-direction: ;
+  margin: 0;
+}
+
+.link_text {
+  font-family: 'Jet Brains Mono';
+  color: #8585AD;}
