@@ -10,9 +10,7 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 function App(props) {
   return (
     <>
-      <main>
-        <AppHeader />
-      </main>
+      <AppHeader />
     </>
   );
 }

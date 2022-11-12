@@ -1,3 +1,3 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./BurgerConstructor.module.css";
+import styles from './BurgerConstructor.module.css';
