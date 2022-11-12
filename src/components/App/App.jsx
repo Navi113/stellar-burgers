@@ -1,6 +1,8 @@
 import React from 'react';
 
-import AppHeader from './AppHeader.jsx';
+import styles from './App.module.css'
+
+import AppHeader from '../AppHeader/AppHeader.jsx';
 
 
 
