@@ -7,18 +7,20 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 function AppHeader() {
   return (
     <header>
-      <div>
+      <div className="pl-20 pr-20">
       <BurgerIcon type="primary" />
-        <p>Конструткор</p>
+        <p className="ml-8">Конструткор</p>
       </div>
-      <div>
+
+      <div className="pl-20 pr-20">
         <ListIcon type="primary" />
-        <p>Лента заказов</p>
+        <p className="ml-8">Лента заказов</p>
       </div>
+
       <Logo />
-      <div>
+      <div className="pl-20 pr-20">
         <ProfileIcon type="primary" />
-        <p>Личный кабинет</p>
+        <p className="ml-8">Личный кабинет</p>
       </div>
     </header>
   )
