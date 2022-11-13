@@ -16,14 +16,14 @@ function AppHeader() {
           <span className={`${styles.link_active} ml-2`}>Конструктор</span>
         </a>
         <a href="#" className={`${styles.link} pt-4 pl-5 pb-4 pr-5 mr-2`}>
-          <ListIcon type="primary" />
+          <ListIcon type="secondary" />
           <span className={`${styles.link_text} ml-2`}>Лента заказов</span>
         </a>
         <a href="#" className={styles.logo}>
           <Logo />
         </a>
         <a href="#" className={`${styles.link} pt-4 pl-5 pb-4 pr-5 mr-2`}>
-          <ProfileIcon type="primary" />
+          <ProfileIcon type="secondary" />
           <span className={`${styles.link_text} ml-2`}>Личный кабинет</span>
         </a>
       </nav>
