@@ -1,8 +1,10 @@
 .section {
   width: 600px;
+  height: 800px;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid salmon; */
+  overflow: hidden;
+  border: 1px solid salmon;
 }
 
 .title {
