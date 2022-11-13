@@ -1,0 +1,21 @@
+.section {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid salmon; */
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.tabs {
+  display: flex;
+  /* border: 1px solid salmon; */
+}
+
+.ingridients {
+  padding: 0;
+  margin-bottom: 0;
+  /* border: 1px solid yellow; */
+}

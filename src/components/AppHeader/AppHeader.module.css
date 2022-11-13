@@ -28,6 +28,7 @@
   align-items: center;
   text-decoration: none;
   cursor: pointer;
+  color: #F2F2F3;  
   /* border: 1px solid blue; */
 }
 
@@ -40,13 +41,4 @@
   position: absolute;
   right: 0;
   /* border: 3px solid yellow; */
-
 }
-
-.link_active {
-  color: #F2F2F3;
-}
-
-.link_text {
-  font-family: 'Jet Brains Mono';
-  color: #8585AD;}
