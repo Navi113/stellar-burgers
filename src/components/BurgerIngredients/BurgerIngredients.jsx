@@ -3,17 +3,38 @@ import React from 'react';
 import styles from './BurgerIngredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { data } from '../utils/data'; 
 
 import BurgerIngredientsItem from '../BurgerIngredientsItem/BurgerIngredientsItem.jsx';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 
-import bunOne from '../../images/bun-01.png';
-import bunTwo from '../../images/bun-02.png';
-import sauceOne from  '../../images/sauce-01.png'
-import sauceTwo from  '../../images/sauce-02.png'
-import sauceThree from  '../../images/sauce-03.png'
-import sauceFour from  '../../images/sauce-04.png'
+const bunArr = data.filter(bun => {
+  if(bun.type === "bun") {
+    return bun;
+  }
+});
 
+// console.log(bunArr);
+
+const sauceArr = data.filter(sauce => {
+  if(sauce.type === "sauce") {
+    return sauce;
+  }
+});
+
+// console.log(sauceArr);
+
+const mainArr = data.filter(main => {
+  if(main.type === "main") {
+    return main;
+  }
+});
+
+// console.log(mainArr);
+
+const buns =bunArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
+const sauces =sauceArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
+const mains =mainArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
 
 
 function BurgerIngredients() {
@@ -24,7 +45,7 @@ function BurgerIngredients() {
         Соберите бургер
       </h1>
       <div className={`${styles.tabs} mt-5`}>
-        <Tab value="one">
+        <Tab value="one" active={ true }>
           Булки
         </Tab>
         <Tab value="two">
@@ -36,16 +57,19 @@ function BurgerIngredients() {
       </div>
       <ul className={`${styles.ingridients} pl-4 pr-2 mt-10`}>
         <BurgerIngredientsItem title="Булки">
-          <BurgerIngredient image={ bunTwo} value="20" discription="Краторная булка N-200i"/> 
-          <BurgerIngredient image={ bunOne} value="20" discription="Флюоресцентная булка R2-D3"/>       
+          {buns}
+          {/* <BurgerIngredient image={ bunTwo } value="20" discription="Краторная булка N-200i"/> 
+          <BurgerIngredient image={ data[0].image } value={data[0].price} discription={data[0].name}/>        */}
         </BurgerIngredientsItem>     
         <BurgerIngredientsItem title="Соусы">
-          <BurgerIngredient image={ sauceOne } value="30" discription="Краторная булка N-200i"/> 
+          {sauces}
+          {/* <BurgerIngredient image={ sauceOne } value="30" discription="Краторная булка N-200i"/> 
           <BurgerIngredient image={ sauceTwo } value="30" discription="Флюоресцентная булка R2-D3"/>   
           <BurgerIngredient image={ sauceThree } value="30" discription="Краторная булка N-200i"/> 
-          <BurgerIngredient image={ sauceFour } value="30" discription="Флюоресцентная булка R2-D3"/>      
+          <BurgerIngredient image={ sauceFour } value="30" discription="Флюоресцентная булка R2-D3"/>       */}
         </BurgerIngredientsItem>  
         <BurgerIngredientsItem title="Начинки">
+          {mains}
           {/* Здесь будут ингридиенты */}
         </BurgerIngredientsItem>
       </ul>
