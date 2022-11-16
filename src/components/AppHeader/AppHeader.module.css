@@ -10,7 +10,7 @@
 .nav {
   position: relative;
   margin: auto;
-  max-width: 1280px;
+  width: 1240px;
   display: flex;
   justify-content: start;
   /* border: 1px solid red; */
