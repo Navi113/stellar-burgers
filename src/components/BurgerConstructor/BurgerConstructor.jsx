@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from 'prop-types';
+
 import styles from "./BurgerConstructor.module.css";
 
 import { data } from '../utils/data.js'
@@ -26,7 +28,8 @@ function BurgerConstructor() {
         />
       </div>
       <ul className={`${styles.list} mr-10`}>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -35,7 +38,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[3].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -44,7 +48,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[2].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -53,7 +58,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[7].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -62,7 +68,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[8].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -71,7 +78,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[9].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -80,7 +88,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[8].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -89,7 +98,8 @@ function BurgerConstructor() {
             thumbnail={dataObj[3].image_mobile}
           />
         </li>
-        <li className={`${styles.item} mb-4 mr-2`}>
+        <li 
+          className={`${styles.item} mb-4 mr-2`}>
           <DragIcon type="primary" />
           <ConstructorElement 
             isLocked={false}
@@ -118,4 +128,5 @@ function BurgerConstructor() {
     </section>
   );
 }
+
 export default BurgerConstructor;

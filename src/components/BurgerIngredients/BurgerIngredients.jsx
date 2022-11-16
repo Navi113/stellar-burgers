@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './BurgerIngredients.module.css';
 
@@ -14,15 +15,11 @@ const bunArr = data.filter(bun => {
   }
 });
 
-// console.log(bunArr);
-
 const sauceArr = data.filter(sauce => {
   if(sauce.type === "sauce") {
     return sauce;
   }
 });
-
-// console.log(sauceArr);
 
 const mainArr = data.filter(main => {
   if(main.type === "main") {
@@ -30,12 +27,9 @@ const mainArr = data.filter(main => {
   }
 });
 
-// console.log(mainArr);
-
-const buns =bunArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
-const sauces =sauceArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
-const mains =mainArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name}/>);
-
+const buns =bunArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
+const sauces =sauceArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
+const mains =mainArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
 
 function BurgerIngredients() {
 
@@ -58,15 +52,9 @@ function BurgerIngredients() {
       <ul className={`${styles.ingridients} pl-4 pr-2 mt-10`}>
         <BurgerIngredientsItem title="Булки">
           {buns}
-          {/* <BurgerIngredient image={ bunTwo } value="20" discription="Краторная булка N-200i"/> 
-          <BurgerIngredient image={ data[0].image } value={data[0].price} discription={data[0].name}/>        */}
         </BurgerIngredientsItem>     
         <BurgerIngredientsItem title="Соусы">
           {sauces}
-          {/* <BurgerIngredient image={ sauceOne } value="30" discription="Краторная булка N-200i"/> 
-          <BurgerIngredient image={ sauceTwo } value="30" discription="Флюоресцентная булка R2-D3"/>   
-          <BurgerIngredient image={ sauceThree } value="30" discription="Краторная булка N-200i"/> 
-          <BurgerIngredient image={ sauceFour } value="30" discription="Флюоресцентная булка R2-D3"/>       */}
         </BurgerIngredientsItem>  
         <BurgerIngredientsItem title="Начинки">
           {mains}
@@ -76,5 +64,21 @@ function BurgerIngredients() {
     </section>
   );
 }
+
+BurgerIngredients: PropTypes.shape({
+  price: PropTypes.string,
+})
+
+// function OrderNumber(props) {
+//   return (
+//     <span>Номер заказа: {props.orderId}</span>
+//     );
+// }
+
+// OrderNumber.propTypes = {
+//   orderId: PropTypes.number
+// }; 
+
+// <OrderNumber orderId="1138" />
 
 export default BurgerIngredients;
