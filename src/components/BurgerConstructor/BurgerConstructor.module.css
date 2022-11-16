@@ -1,12 +1,10 @@
 .section {
   width: 600px;
-  height: 800px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
   /* border: 1px solid salmon; */
 }
 
-.list {
-  border: 1px solid green;
+.info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
