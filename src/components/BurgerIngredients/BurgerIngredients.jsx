@@ -65,20 +65,4 @@ function BurgerIngredients() {
   );
 }
 
-BurgerIngredients: PropTypes.shape({
-  price: PropTypes.string,
-})
-
-// function OrderNumber(props) {
-//   return (
-//     <span>Номер заказа: {props.orderId}</span>
-//     );
-// }
-
-// OrderNumber.propTypes = {
-//   orderId: PropTypes.number
-// }; 
-
-// <OrderNumber orderId="1138" />
-
 export default BurgerIngredients;
