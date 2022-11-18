@@ -19,10 +19,6 @@
   align-items: center;
 }
 
-.header {
-  margin: 0;
-}
-
 .closeButton {
   padding: 0;
   border: none;
@@ -35,4 +31,16 @@
 
 .closeButton:hover {
   opacity: .5;
+}
+
+.header {
+  margin: 0;
+}
+
+.modal {
+  visibility: hidden;
+}
+
+.modalVisible {
+  visibility: visible;
 }
