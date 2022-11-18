@@ -1,16 +1,15 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
 import styles from '../IngredientsDetails/IngredientsDetails.module.css'
 
 import { data } from '../utils/data'; 
 
-const songsObject = JSON.stringify(data);
-const dataObj = JSON.parse(songsObject);
+const dataStr = JSON.stringify(data);
+const dataObj = JSON.parse(dataStr);
 
 function IngredientsDetails() {
   return(
-    <section className={styles.section}>
+    <section className={`${styles.section} mt-10 mr-10 ml-10 mb-15`}>
+      <h2 className="text text_type_main-large">Детали ингредиента</h2>
       <img 
         className='mb-4'
         src={dataObj[2].image_large} 

@@ -1,13 +1,9 @@
-import React from "react";
-
+import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
-
 import styles from "./BurgerConstructor.module.css";
 
 import Modal from "../Modal/Modal";
-
 import { data } from '../utils/data.js'
-
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -19,11 +15,23 @@ const dataObj = JSON.parse(songsObject);
 
 function BurgerConstructor() {
 
-  const [modalVisible, modalSetVisible] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  useEffect(() => {
+    const closeOnEsc = (evt) => {
+      evt.key === 'Escape' && setModalVisible(false);
+    };
+
+    document.addEventListener('keydown', closeOnEsc);
+
+    return () => {
+      document.removeEventListener('keydown', closeOnEsc);
+    }
+  }, []);
 
   return (
     <>
-      <Modal modalVisible={modalVisible} details={<OrderDetails />} />
+      <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} details={<OrderDetails />} />
       <section className={`${styles.section} pt-25 pl-4`}>
         <div className="pl-8 mb-4">
           <ConstructorElement 
@@ -129,7 +137,7 @@ function BurgerConstructor() {
         <div className={styles.info}>
           <p className="text text_type_digits-medium mr-1">6660</p>
           <CurrencyIcon type="primary" />
-          <Button onClick={() => { modalSetVisible(true) }} htmlType="button" type="primary" size="large" extraClass="ml-10">
+          <Button onClick={() => { setModalVisible(true) }} htmlType="button" type="primary" size="large" extraClass="ml-10">
             Оформить заказ
           </Button>
         </div>

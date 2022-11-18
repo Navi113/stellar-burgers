@@ -1,12 +1,10 @@
-import React from 'react';
-
+import PropTypes from 'prop-types';
 import styles from './BurgerIngredient.module.css';
 
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredient(props) {
-  
   return (
     <div className={`${styles.container} mr-6`}>
       <Counter count={1} size="default" extraClass="m-1" />
