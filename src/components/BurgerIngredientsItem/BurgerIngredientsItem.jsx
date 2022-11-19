@@ -15,3 +15,8 @@ function BurgerIngredientsItem(props) {
 }
 
 export default BurgerIngredientsItem;
+
+BurgerIngredientsItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
+}

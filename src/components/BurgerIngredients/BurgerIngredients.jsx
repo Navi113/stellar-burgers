@@ -29,19 +29,9 @@ function BurgerIngredients(props) {
     setModalVisible(false)
   };
 
-  // useEffect(() => {
-  //   console.log(modalData)
-  // }, [modalData])
-
-
   useEffect(() => {
     setIngredients(data)
   }, [data])
-
-
-  // useEffect(() => {
-  //   console.log(data)
-  // }, [data])
 
   useEffect(() => {
     const bunsArray = ingredients.filter(bun => { // Массив отфильтрованных булок
@@ -165,3 +155,7 @@ function BurgerIngredients(props) {
 }
 
 export default BurgerIngredients;
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.array.isRequired
+}

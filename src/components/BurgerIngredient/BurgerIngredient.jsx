@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ingredientType from '../utils/types.js';
 
 function BurgerIngredient(props) {
   const handlerOpenPopup = () => {
@@ -17,10 +18,6 @@ function BurgerIngredient(props) {
       imageLarge: props.imageLarge
     })
   }
-
-  useEffect(() => {
-    console.log(props)
-  }, [])
 
     return (
     <div onClick={handlerOpenPopup} className={`${styles.container} mr-6`}>
@@ -40,3 +37,5 @@ function BurgerIngredient(props) {
 }
 
 export default BurgerIngredient;
+
+BurgerIngredient.propTypes=ingredientType;

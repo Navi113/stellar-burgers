@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 import styles from "./BurgerConstructor.module.css";
 
 import Modal from "../Modal/Modal";
-import { data } from '../utils/data.js'
+// import { info } from '../utils/info.js'
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
-const songsObject = JSON.stringify(data);
-const dataObj = JSON.parse(songsObject);
 
-function BurgerConstructor() {
+
+function BurgerConstructor(props) {
+  
+  const [info, setInfo] = useState([]);
+  const [elements, setElements] = useState([])
+  const data = props.data
 
   const handlerOpenPopup = (value) => {
-    setModalVisible(true)
+    setModalVisible(true) 
   };
 
   const handlerClosePopup = (value) => {
@@ -37,6 +40,21 @@ function BurgerConstructor() {
     }
   }, []);
 
+  useEffect(() => {
+    setInfo(data)
+  }, [data])
+
+  useEffect(() => {
+    const elements = info.map(i =>
+      <>
+          <DragIcon />
+          <ConstructorElement text={i.name} thumbnail={i.image} isLocked={false} price={i.price} key={i._id} />
+      </>
+    )
+    setElements(elements)
+  }, [info])
+
+
   return (
     <>
       <section className={`${styles.section} pt-25 pl-4`}>
@@ -45,100 +63,53 @@ function BurgerConstructor() {
             className="ml-8"
             type="top"
             isLocked={true}
-            text={`${dataObj[0].name} (верх)`}
-            price={dataObj[0].price}
-            thumbnail={dataObj[0].image_mobile}
+            text={'Флюоресцентная булка R2-D3 (верх)'}
+            price={850}
+            thumbnail='https://code.s3.yandex.net/react/code/bun-01.png'
           />
         </div>
         <ul className={`${styles.list} mr-10`}>
           <li 
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[3].name}
-              price={dataObj[3].price}
-              thumbnail={dataObj[3].image_mobile}
-            />
+            {elements[2]}
           </li>
           <li 
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[2].name}
-              price={dataObj[2].price}
-              thumbnail={dataObj[2].image_mobile}
-            />
+            {elements[4]}
           </li>
           <li 
            className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-            isLocked={false}
-            text={dataObj[7].name}
-            price={dataObj[7].price}
-            thumbnail={dataObj[7].image_mobile}
-          />
+           {elements[4]}
           </li>
           <li
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[8].name}
-              price={dataObj[8].price}
-              thumbnail={dataObj[8].image_mobile}
-            />
+            {elements[4]}
           </li>
           <li 
            className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[9].name}
-              price={dataObj[9].price}
-              thumbnail={dataObj[9].image_mobile}
-            />
+            {elements[2]}
           </li>
           <li 
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[8].name}
-              price={dataObj[8].price}
-              thumbnail={dataObj[8].image_mobile}
-            />
+           {elements[8]}
           </li>
           <li 
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[3].name}
-              price={dataObj[3].price}
-              thumbnail={dataObj[3].image_mobile}
-            />
+            {elements[9]}
           </li>
           <li 
             className={`${styles.item} mb-4 mr-2`}>
-            <DragIcon type="primary" />
-            <ConstructorElement 
-              isLocked={false}
-              text={dataObj[9].name}
-              price={dataObj[9].price}
-              thumbnail={dataObj[9].image_mobile}
-            />
+            {elements[0]}
           </li>
         </ul>
         <div className="pl-8 mt-4 mb-10">
-          <ConstructorElement 
+        <ConstructorElement 
+            className="ml-8"
             type="bottom"
             isLocked={true}
-            text={`${dataObj[0].name} (верх)`}
-            price={dataObj[0].price}
-            thumbnail={dataObj[0].image_mobile}
+            text={'Флюоресцентная булка R2-D3 (низ)'}
+            price={850}
+            thumbnail='https://code.s3.yandex.net/react/code/bun-01.png'
           />
         </div>
         <div className={styles.info}>
@@ -155,3 +126,7 @@ function BurgerConstructor() {
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.array.isRequired
+}

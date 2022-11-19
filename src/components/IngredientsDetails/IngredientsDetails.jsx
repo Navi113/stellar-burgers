@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from '../IngredientsDetails/IngredientsDetails.module.css'
+import ingredientType from '../utils/types';
 
 function IngredientsDetails(props) {
   return(
@@ -34,3 +35,5 @@ function IngredientsDetails(props) {
 }
 
 export default IngredientsDetails;
+
+IngredientsDetails.propTypes=ingredientType;
