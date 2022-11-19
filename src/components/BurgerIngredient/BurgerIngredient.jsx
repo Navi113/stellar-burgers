@@ -1,12 +1,29 @@
 import PropTypes from 'prop-types';
 import styles from './BurgerIngredient.module.css';
+import { useEffect } from 'react';
 
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredient(props) {
-  return (
-    <div className={`${styles.container} mr-6`}>
+  const handlerOpenPopup = () => {
+    props.onOpen({
+      image: props.image, 
+      fat: props.fat, 
+      proteins: props.proteins, 
+      calories: props.calories, 
+      carbohydrates: props.carbohydrates, 
+      name: props.name,
+      imageLarge: props.imageLarge
+    })
+  }
+
+  useEffect(() => {
+    console.log(props)
+  }, [])
+
+    return (
+    <div onClick={handlerOpenPopup} className={`${styles.container} mr-6`}>
       <Counter count={1} size="default" extraClass="m-1" />
       <img className={ styles.image } src={props.image} alt="#" />
       <p className='mt-1 mb-1'>

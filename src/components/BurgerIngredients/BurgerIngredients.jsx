@@ -1,42 +1,130 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './BurgerIngredients.module.css';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { data } from '../utils/data'; 
 import BurgerIngredientsItem from '../BurgerIngredientsItem/BurgerIngredientsItem.jsx';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import Modal from '../Modal/Modal';
 import IngredientsDetails from '../IngredientsDetails/IngredientsDetails';
 
-const bunArr = data.filter(bun => {
-  if(bun.type === "bun") {
-    return bun;
-  }
-});
 
-const sauceArr = data.filter(sauce => {
-  if(sauce.type === "sauce") {
-    return sauce;
-  }
-});
 
-const mainArr = data.filter(main => {
-  if(main.type === "main") {
-    return main;
-  }
-});
+function BurgerIngredients(props) {
+  const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
+  const [modalData, setModalData] = useState({image: "", fat: "", proteins: "", calories: "", carbohydrates: "", name: "", imageLarge: ""}); // Состояние окна (данные)
+  const [buns, setBuns] = useState([]);
+  const [sauces, setSauces] = useState([]);
+  const [mains, setMains] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
-const buns =bunArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
-const sauces =sauceArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
-const mains =mainArr.map(x => <BurgerIngredient image={x.image} value={x.price} discription={x.name} key={x._id}/>);
+  const data = props.data; 
 
-function BurgerIngredients() {
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const handlerOpenPopup = (value) => {
+    setModalVisible(true)
+    setModalData(value)
+  };
+
+  const handlerClosePopup = (value) => {
+    setModalVisible(false)
+  };
+
+  // useEffect(() => {
+  //   console.log(modalData)
+  // }, [modalData])
+
+
+  useEffect(() => {
+    setIngredients(data)
+  }, [data])
+
+
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data])
+
+  useEffect(() => {
+    const bunsArray = ingredients.filter(bun => { // Массив отфильтрованных булок
+      if(bun.type === "bun") {
+        return bun;
+      }
+    })
+
+    const buns = bunsArray.map(x => <BurgerIngredient 
+      onOpen={handlerOpenPopup} 
+      image={x.image} 
+      imageLarge={x.image_large}
+      fat={x.fat} 
+      proteins={x.proteins} 
+      calories={x.calories} 
+      carbohydrates={x.carbohydrates}
+      value={x.price} 
+      discription={x.name} 
+      key={x._id}
+    />);
+    setBuns(buns);
+  }, [ingredients])
+  
+  useEffect(() => {
+    const sauceArray = ingredients.filter(sauce => { // Массив отфильтрованных соусов
+      if(sauce.type === "sauce") {
+        return sauce;
+      }
+    })
+    const sauce = sauceArray.map(x => <BurgerIngredient 
+      onOpen={handlerOpenPopup} 
+      image={x.image} 
+      imageLarge={x.image_large}
+      fat={x.fat} 
+      proteins={x.proteins} 
+      calories={x.calories} 
+      carbohydrates={x.carbohydrates}
+      value={x.price} 
+      discription={x.name} 
+      key={x._id}
+    />);
+    setSauces(sauce);
+  }, [ingredients])
+
+  // useEffect(() => {
+  //   console.log(sauces)
+  // }, [sauces])
+
+  useEffect(() => {
+    const mainArray = ingredients.filter(main => {  // Массив отфильтрованных начинох
+      if(main.type === "main") {
+        return main;
+      }
+    })
+    const main = mainArray.map(x => <BurgerIngredient
+      onOpen={handlerOpenPopup} 
+      image={x.image}
+      imageLarge={x.image_large} 
+      fat={x.fat} 
+      proteins={x.proteins} 
+      calories={x.calories} 
+      carbohydrates={x.carbohydrates}
+      value={x.price} 
+      discription={x.name} 
+      key={x._id}
+    />);
+    setMains(main);
+  }, [ingredients])
+
+  useEffect(() => {
+    const closeOnEsc = (evt) => {
+      evt.key === 'Escape' && handlerClosePopup();
+    };
+
+    document.addEventListener('keydown', closeOnEsc);
+
+    return () => {
+      document.removeEventListener('keydown', closeOnEsc);
+    }
+  }, []);
 
   return (
     <>
-      <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} details={<IngredientsDetails />} />
       <section className={`${styles.section} mr-10`}>
         <h1 className={`${styles.title} text text_type_main-large`}>
           Соберите бургер
@@ -64,6 +152,14 @@ function BurgerIngredients() {
           </BurgerIngredientsItem>
         </ul>
       </section>
+      {modalVisible && (<Modal  onClose={handlerClosePopup} details={<IngredientsDetails 
+        image={modalData.imageLarge}
+        fat={modalData.fat}
+        proteins={modalData.proteins}
+        calories={modalData.calories}
+        carbohydrates={modalData.carbohydrates}
+        name={modalData.name} 
+      />} />)} 
     </>
   );
 }

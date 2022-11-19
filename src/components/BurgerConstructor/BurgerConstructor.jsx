@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import styles from "./BurgerConstructor.module.css";
 
@@ -15,11 +15,19 @@ const dataObj = JSON.parse(songsObject);
 
 function BurgerConstructor() {
 
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const handlerOpenPopup = (value) => {
+    setModalVisible(true)
+  };
+
+  const handlerClosePopup = (value) => {
+    setModalVisible(false)
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const closeOnEsc = (evt) => {
-      evt.key === 'Escape' && setModalVisible(false);
+      evt.key === 'Escape' && handlerClosePopup();
     };
 
     document.addEventListener('keydown', closeOnEsc);
@@ -31,7 +39,6 @@ function BurgerConstructor() {
 
   return (
     <>
-      <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} details={<OrderDetails />} />
       <section className={`${styles.section} pt-25 pl-4`}>
         <div className="pl-8 mb-4">
           <ConstructorElement 
@@ -137,11 +144,12 @@ function BurgerConstructor() {
         <div className={styles.info}>
           <p className="text text_type_digits-medium mr-1">6660</p>
           <CurrencyIcon type="primary" />
-          <Button onClick={() => { setModalVisible(true) }} htmlType="button" type="primary" size="large" extraClass="ml-10">
+          <Button onClick={handlerOpenPopup} htmlType="button" type="primary" size="large" extraClass="ml-10">
             Оформить заказ
           </Button>
         </div>
       </section>
+      {modalVisible && (<Modal onClose={handlerClosePopup} details={<OrderDetails />} />)} 
     </>
   );
 }

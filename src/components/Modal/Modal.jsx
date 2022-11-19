@@ -7,17 +7,17 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 
 const modalRoot = document.querySelector('#react-modals');
 
-function Modal({modalVisible, setModalVisible, details}) {
+function Modal({details, onClose}) {
   return ReactDOM.createPortal (
     (
       <>
-        <div className={modalVisible ? styles.modalVisible : styles.modal}>
-          <div onClick={() => { setModalVisible(false) }}> 
+        <div>
+          <div onClick={onClose}> 
             <ModalOverlay />
           </div>
             <div className={styles.container}>
-              <button className={styles.closeButton}>
-                <CloseIcon onClick={() => { setModalVisible(false) }}/>
+              <button onClick={onClose} className={styles.closeButton}>
+                <CloseIcon />
               </button>
               {details}
             </div>
