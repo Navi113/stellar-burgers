@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import styles from "../IngredientsDetails/IngredientsDetails.module.css";
-import ingredientType from "../utils/types";
 
 function IngredientsDetails(props) {
   return (
@@ -48,9 +48,8 @@ function IngredientsDetails(props) {
 
 export default IngredientsDetails;
 
-// IngredientsDetails.propTypes=ingredientType;
-
 IngredientsDetails.propTypes = {
+  name: PropTypes.string.isRequired,
   calories: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,

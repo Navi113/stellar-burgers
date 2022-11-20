@@ -110,18 +110,6 @@ function BurgerIngredients(props) {
     setMains(main);
   }, [ingredients]);
 
-  useEffect(() => {
-    const closeOnEsc = (evt) => {
-      evt.key === "Escape" && handlerClosePopup();
-    };
-
-    document.addEventListener("keydown", closeOnEsc);
-
-    return () => {
-      document.removeEventListener("keydown", closeOnEsc);
-    };
-  }, []);
-
   return (
     <>
       <section className={`${styles.section} mr-10`}>
@@ -147,19 +135,16 @@ function BurgerIngredients(props) {
         </ul>
       </section>
       {modalVisible && (
-        <Modal
-          onClose={handlerClosePopup}
-          details={
-            <IngredientsDetails
-              image={modalData.imageLarge}
-              fat={modalData.fat}
-              proteins={modalData.proteins}
-              calories={modalData.calories}
-              carbohydrates={modalData.carbohydrates}
-              name={modalData.name}
-            />
-          }
-        />
+        <Modal onClose={handlerClosePopup}>
+          <IngredientsDetails
+            image={modalData.imageLarge}
+            fat={modalData.fat}
+            proteins={modalData.proteins}
+            calories={modalData.calories}
+            carbohydrates={modalData.carbohydrates}
+            name={modalData.name}
+          />
+        </Modal>
       )}
     </>
   );

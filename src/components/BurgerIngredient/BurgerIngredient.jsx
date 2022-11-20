@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import styles from "./BurgerIngredient.module.css";
 import { useEffect } from "react";
 
+import React from "react";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientType from "../utils/types.js";
+import ingredientType from "../../utils/types.js";
 
 function BurgerIngredient(props) {
   const handlerOpenPopup = () => {
@@ -14,7 +15,7 @@ function BurgerIngredient(props) {
       proteins: props.proteins,
       calories: props.calories,
       carbohydrates: props.carbohydrates,
-      name: props.name,
+      name: props.discription,
       imageLarge: props.imageLarge,
     });
   };

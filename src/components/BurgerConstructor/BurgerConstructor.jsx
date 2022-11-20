@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styles from "./BurgerConstructor.module.css";
 
 import Modal from "../Modal/Modal";
-// import { info } from '../utils/info.js'
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,46 +12,29 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 function BurgerConstructor(props) {
   const [info, setInfo] = useState([]);
   const [elements, setElements] = useState([]);
-  const data = props.data;
-
-  const handlerOpenPopup = (value) => {
+  const handlerOpenPopup = () => {
     setModalVisible(true);
   };
-
-  const handlerClosePopup = (value) => {
+  const handlerClosePopup = () => {
     setModalVisible(false);
   };
-
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    const closeOnEsc = (evt) => {
-      evt.key === "Escape" && handlerClosePopup();
-    };
-
-    document.addEventListener("keydown", closeOnEsc);
-
-    return () => {
-      document.removeEventListener("keydown", closeOnEsc);
-    };
-  }, []);
+  useEffect(() => { 
+    setInfo(props.data);
+  }, [props.data]);
 
   useEffect(() => {
-    setInfo(data);
-  }, [data]);
-
-  useEffect(() => {
-    const elements = info.map((i) => (
-      <>
+    const elements = info.map((item) => (
+      <li className={`${styles.item} mb-4 mr-2`} key={item._id}>
         <DragIcon />
         <ConstructorElement
-          text={i.name}
-          thumbnail={i.image}
+          text={item.name}
+          thumbnail={item.image}
           isLocked={false}
-          price={i.price}
-          key={i._id}
+          price={item.price}
         />
-      </>
+        </li>
     ));
     setElements(elements);
   }, [info]);
@@ -71,14 +53,7 @@ function BurgerConstructor(props) {
           />
         </div>
         <ul className={`${styles.list} mr-10`}>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[2]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[4]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[4]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[4]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[2]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[8]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[9]}</li>
-          <li className={`${styles.item} mb-4 mr-2`}>{elements[0]}</li>
+          {elements.slice(2)}    {/*убрали булки*/}
         </ul>
         <div className="pl-8 mt-4 mb-10">
           <ConstructorElement
