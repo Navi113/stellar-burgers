@@ -12,9 +12,14 @@ const checkRes = (res) => {
     return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-const fecthData = () => {
-  return fetch(config.baseURL)
-  .then(checkRes)
-};
+// const fecthData = () => {
+//   return fetch(config.baseURL)
+//   .then(checkRes)
+// };
 
-export {fecthData};
+function request(url, options) {
+  // принимает два аргумента: урл и объект опций, как и `fetch`
+  return fetch(url, options).then(checkRes)
+}
+
+export {request ,config};
