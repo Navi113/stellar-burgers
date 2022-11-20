@@ -1,9 +1,13 @@
 .header {
   margin: 0 auto;
   max-width: 1920px;
-  background: #1C1C21;
+  min-width: 1200px;
+  width: 100%;
+  background: #1c1c21;
   box-sizing: border-box;
-  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
 .nav {
@@ -23,7 +27,7 @@
   box-sizing: border-box;
   text-decoration: none;
   cursor: pointer;
-  color: #F2F2F3;  
+  color: #f2f2f3;
 }
 
 .link:last-child {
