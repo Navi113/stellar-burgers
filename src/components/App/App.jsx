@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader.jsx";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { request, config } from "../../utils/api";
+import { fetchIngredients } from "../../utils/api";
 import { useContext, useEffect, useState } from "react";
 import { Context } from '../../services/Context'
 
@@ -12,7 +12,7 @@ function App() {
   const ingridients = useState([]);
 
   useEffect(() => {
-    request(config.baseURL, config.headers)
+    fetchIngredients()
       .then((res) => {
         setData(res.data);
       })
