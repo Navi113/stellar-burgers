@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./BurgerIngredients.module.css";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsItem from "../BurgerIngredientsItem/BurgerIngredientsItem.jsx";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import Modal from "../Modal/Modal";
 import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
+import { Context } from '../../services/Context';
 
 // Компонент 
-function BurgerIngredients(props) {
+export default function BurgerIngredients(props) {
   const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
   const [modalData, setModalData] = useState({ // Состояние данных модального окна
     image: "",
@@ -24,7 +24,7 @@ function BurgerIngredients(props) {
   const [buns, setBuns] = useState([]); // Состояние булок
   const [sauces, setSauces] = useState([]); // Состояние соусов
   const [mains, setMains] = useState([]);  // Состояние начинок
-  const [ingredients, setIngredients] = useState([]); // Состояние ингридиентов
+  const [ingredients, setIngredients] = useContext(Context); // Состояние ингридиентов
 
   const data = props.data; // Даннве с сервера
   
@@ -42,6 +42,10 @@ function BurgerIngredients(props) {
   useEffect(() => {
     setIngredients(data);
   }, [data]);
+
+  // useEffect(() => {
+  //   setNewIngredients(data);
+  // }, [data]);
 
   useEffect(() => {
     const bunsArray = ingredients.filter((bun) => {
@@ -154,8 +158,6 @@ function BurgerIngredients(props) {
     </>
   );
 }
-
-export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
   data: PropTypes.array.isRequired,

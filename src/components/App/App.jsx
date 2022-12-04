@@ -9,7 +9,9 @@ import { Context } from '../../services/Context'
 
 function App() {
   const [data, setData] = useState([]);
-  const [info, setInfo] = {};
+  const ingridients = useState([]);
+
+  console.log(ingridients);
 
   useEffect(() => {
     request(config.baseURL, config.headers)
@@ -20,13 +22,13 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Context.Provider value={ingridients}>
       <AppHeader />
       <main className={styles.main}>
         <BurgerIngredients data={data} />
         <BurgerConstructor data={data} />
       </main>
-    </>
+    </Context.Provider>
   );
 }
 

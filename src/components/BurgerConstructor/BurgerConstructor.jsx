@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import styles from "./BurgerConstructor.module.css";
-
 import Modal from "../Modal/Modal";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { Context } from '../../services/Context';
 
-function BurgerConstructor(props) {
+export default function BurgerConstructor(props) {
+  const [ingredients] = useContext(Context); 
   const [info, setInfo] = useState([]);
   const [elements, setElements] = useState([]);
   const handlerOpenPopup = () => {
@@ -87,8 +88,6 @@ function BurgerConstructor(props) {
     </>
   );
 }
-
-export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
   data: PropTypes.array.isRequired,
