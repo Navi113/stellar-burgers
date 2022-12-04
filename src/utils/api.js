@@ -5,7 +5,6 @@ const config = {
   }
 }
 
-
 const fetchIngredients = () => {
   return fetch(`${config.baseURL}ingredients`, config.headers)
     .then(checkRes)
@@ -33,5 +32,6 @@ const checkRes = (res) => {
 
 export {
   fetchIngredients,
+  postOrder
 };
 
