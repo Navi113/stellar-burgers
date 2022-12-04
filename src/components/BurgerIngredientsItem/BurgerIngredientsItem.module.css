@@ -1,0 +1,10 @@
+.list_item {
+  list-style: none;
+}
+
+.list_item_container {
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  /* border: 1px solid wheat; */
+}

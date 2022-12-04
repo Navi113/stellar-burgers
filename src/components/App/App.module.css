@@ -1,0 +1,7 @@
+.main {
+  margin: auto;
+  min-width: 1200px;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid rebeccapurple; */
+}
