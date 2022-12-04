@@ -11,8 +11,6 @@ function App() {
   const [data, setData] = useState([]);
   const ingridients = useState([]);
 
-  console.log(ingridients);
-
   useEffect(() => {
     request(config.baseURL, config.headers)
       .then((res) => {

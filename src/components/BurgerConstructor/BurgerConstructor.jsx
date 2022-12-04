@@ -13,20 +13,57 @@ export default function BurgerConstructor(props) {
   const [ingredients] = useContext(Context); 
   const [info, setInfo] = useState([]);
   const [elements, setElements] = useState([]);
+  const [selectedIngredients, setSelectedIngredients] = useState([]); // Состояние выбранных 
+  const [buns, setBuns] = useState([]); // Состояние булок
+  const [sauces, setSauces] = useState([]); // Состояние соусов
+  const [mains, setMains] = useState([]);  // Состояние начинок
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handlerOpenPopup = () => {
     setModalVisible(true);
   };
   const handlerClosePopup = () => {
     setModalVisible(false);
   };
-  const [modalVisible, setModalVisible] = useState(false);
+  
+  useEffect(() => {
+    const bunsArray = ingredients.filter((item) => {
+      if (item.type === "bun") {
+        return item;
+      }
+    });
+    setBuns(bunsArray);
+  }, [ingredients]);
+
+  useEffect(() => {
+    const saucesArray = ingredients.filter((item) => {
+      if (item.type === "sauce") {
+        return item;
+      }
+    });
+    setSauces(saucesArray);
+  }, [ingredients]);
+
+  useEffect(() => {
+    const mainsArray = ingredients.filter((item) => {
+      if (item.type === "main") {
+        return item;
+      }
+    });
+    setMains(mainsArray);
+  }, [ingredients]);
+
+  useEffect(() => {
+    const selectedItems = sauces.concat(mains);
+    setSelectedIngredients(selectedItems)
+  }, [ingredients])
 
   useEffect(() => { 
     setInfo(props.data);
   }, [props.data]);
 
   useEffect(() => {
-    const elements = info.map((item) => (
+    const elements = selectedIngredients.map((item) => (
       <li className={`${styles.item} mb-4 mr-2`} key={item._id}>
         <DragIcon />
         <ConstructorElement
@@ -38,7 +75,7 @@ export default function BurgerConstructor(props) {
         </li>
     ));
     setElements(elements);
-  }, [info]);
+  }, [selectedIngredients]);
 
   return (
     <>
@@ -54,7 +91,7 @@ export default function BurgerConstructor(props) {
           />
         </div>
         <ul className={`${styles.list} mr-10`}>
-          {elements.slice(2)}    {/*убрали булки*/}
+          {elements}
         </ul>
         <div className="pl-8 mt-4 mb-10">
           <ConstructorElement
