@@ -8,9 +8,10 @@ import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import Modal from "../Modal/Modal";
 import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
 
+// Компонент 
 function BurgerIngredients(props) {
   const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
-  const [modalData, setModalData] = useState({
+  const [modalData, setModalData] = useState({ // Состояние данных модального окна
     image: "",
     fat: "",
     proteins: "",
@@ -20,18 +21,20 @@ function BurgerIngredients(props) {
     imageLarge: "",
   });
 
-  const [buns, setBuns] = useState([]);
-  const [sauces, setSauces] = useState([]);
-  const [mains, setMains] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
+  const [buns, setBuns] = useState([]); // Состояние булок
+  const [sauces, setSauces] = useState([]); // Состояние соусов
+  const [mains, setMains] = useState([]);  // Состояние начинок
+  const [ingredients, setIngredients] = useState([]); // Состояние ингридиентов
 
-  const data = props.data;
-
+  const data = props.data; // Даннве с сервера
+  
+  // Функция-обработчик открытия модального окна
   const handlerOpenPopup = (value) => {
     setModalVisible(true);
     setModalData(value);
   };
 
+  // Функция-обработчик закрытия модального окна
   const handlerClosePopup = (value) => {
     setModalVisible(false);
   };
@@ -70,6 +73,7 @@ function BurgerIngredients(props) {
         return sauce;
       }
     });
+
     const sauce = sauceArray.map((item) => (
       <BurgerIngredient
         onOpen={handlerOpenPopup}
@@ -93,6 +97,7 @@ function BurgerIngredients(props) {
         return main;
       }
     });
+
     const main = mainArray.map((item) => (
       <BurgerIngredient
         onOpen={handlerOpenPopup}

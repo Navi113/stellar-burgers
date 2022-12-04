@@ -4,10 +4,12 @@ import AppHeader from "../AppHeader/AppHeader.jsx";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { request, config } from "../../utils/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Context } from '../../services/Context'
 
 function App() {
   const [data, setData] = useState([]);
+  const [info, setInfo] = {};
 
   useEffect(() => {
     request(config.baseURL, config.headers)

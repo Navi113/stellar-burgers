@@ -84,7 +84,6 @@ function BurgerConstructor(props) {
           <OrderDetails />
         </Modal>
       )}
-      {/* {modalVisible && (<Modal onClose={handlerClosePopup} details={<OrderDetails />} />)}  */}
     </>
   );
 }
