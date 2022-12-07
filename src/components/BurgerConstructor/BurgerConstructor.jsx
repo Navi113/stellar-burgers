@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import styles from "./BurgerConstructor.module.css";
 import Modal from "../Modal/Modal";
@@ -24,60 +24,63 @@ export default function BurgerConstructor() {
   const handleOpenPopup = () => setModalVisible(true);
   const handleClosePopup = () => setModalVisible(false);
 
-  useEffect(() => {
-    function checkData() {
-      if (ingredients.length === 0) {
-        return;
-      } else {
-        const saucesArray = ingredients.filter((item) => {
-          if (item.type === "sauce") {
-            return item;
-          }
-        });
+  function checkData() {
+    if (ingredients.length === 0) {
+      return;
+    } else {
+      const saucesArray = ingredients.filter((item) => {
+        if (item.type === "sauce") {
+          return item;
+        }
+      });
 
-        setSauces(saucesArray);
+      setSauces(saucesArray);
 
-        const mainsArray = ingredients.filter((item) => {
-          if (item.type === "main") {
-            return item;
-          }
-        });
+      const mainsArray = ingredients.filter((item) => {
+        if (item.type === "main") {
+          return item;
+        }
+      });
 
-        setMains(mainsArray);
+      setMains(mainsArray);
 
-        const bunsArray = ingredients.filter((item) => {
-          if (item.type === "bun") {
-            return item;
-          }
-        });
+      const bunsArray = ingredients.filter((item) => {
+        if (item.type === "bun") {
+          return item;
+        }
+      });
 
-        setBuns(bunsArray);
-      }
+      setBuns(bunsArray);
     }
-    checkData();
-  }, [ingredients]);
+  }
+
+  const setArrays = useMemo(checkData, [ingredients]);
 
   useEffect(() => {
     if (sauces.length === 0) {
-      console.log("error");
       return;
     } else {
-      const selectedItems = sauces.concat(mains); // Сложение двух массивов 
-      const count = selectedItems.map((i) => {
+      const selectedItems = sauces.concat(mains); // Сложение двух массивов
+      const count = selectedItems
+        .map((i) => {
           return i.price;
         })
         .reduce((a, b) => a + b, 0);
-      console.log(count);
-      setCost(count + 1976); // Изменение состояния счетчика
+      const bunsCount = buns.slice(1)[0].price * 2;
+      setCost(count + bunsCount); // Изменение состояния счетчика
       setSelectedIngredients(selectedItems); // рендер элементов конструктора
 
       const arrIds = selectedItems.map((id) => {
         return id._id;
       });
 
-      postOrder(arrIds).then((res) => {
-        setOrdernumber(res.order.number);
-      });
+      postOrder(arrIds)
+        .then((res) => {
+          setOrdernumber(res.order.number);
+        })
+        .catch(() => {
+          console.log("Id не получены");
+        });
     }
   }, [sauces]);
 
@@ -96,37 +99,53 @@ export default function BurgerConstructor() {
     setElements(elements);
   }, [selectedIngredients]);
 
+  function selectTopBun() {
+    return(
+        buns.filter((i, index) => index === 1)
+        .map((i) => (
+          <div key="1">
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={i.name + " (верх)"}
+              price={i.price}
+              thumbnail={i.image}
+            />
+          </div>
+        ))
+    )
+  }
+
+  function selectBottomBun() {
+    return(
+        buns.filter((i, index) => index === 1)
+        .map((i) => (
+          <div key="1">
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={i.name + " (низ)"}
+              price={i.price}
+              thumbnail={i.image}
+            />
+          </div>
+        ))
+    )
+  }
+
+
+  const topBun = useMemo(selectTopBun, [buns])
+  const bottomBun =useMemo(selectBottomBun, [buns])
+
   return (
     <>
       <section className={`${styles.section} pt-25 pl-4`}>
-      <div className={"pl-8 pt-25 mb-4"}>
-          {buns.filter((i, index) => index === 1)
-            .map(i =>
-              <div key="1">
-                <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text={i.name + ' (верх)'}
-                  price={i.price}
-                  thumbnail={i.image}
-                />
-              </div>
-            )}
+        <div className={"pl-8 pt-25 mb-4"}>
+          {topBun}
         </div>
         <ul className={`${styles.list} mr-10`}>{elements}</ul>
         <div className={"pl-8 mt-4 mb-10"}>
-          {buns.filter((i, index) => index === 1)
-            .map(i =>
-              <div key="2">
-                <ConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text={i.name + ' (низ)'}
-                  price={i.price}
-                  thumbnail={i.image}
-                />
-              </div>
-            )}
+          {bottomBun}
         </div>
 
         <div className={styles.info}>

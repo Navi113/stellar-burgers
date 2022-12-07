@@ -4,7 +4,6 @@ import styles from "../OrderDetails/OrderDetails.module.css";
 import doneImage from "../../images/done.png";
 
 function OrderDetails(props) {
-  console.log(props)
   return (
     <section className={`${styles.section} mt-30 mb-30`}>
       <h3 className="text text_type_digits-large mb-8">{props.orderNum}</h3>
@@ -21,3 +20,11 @@ function OrderDetails(props) {
 }
 
 export default OrderDetails;
+
+// OrderDetails.PropTypes = {
+//   orderNum: PropTypes.string
+// };
+
+OrderDetails.propTypes = {
+  orderNum: PropTypes.number.isRequired,
+}; 

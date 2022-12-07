@@ -9,7 +9,7 @@ import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
 import { Context } from '../../services/Context';
 
 // Компонент 
-export default function BurgerIngredients(props) {
+export default function BurgerIngredients() {
   const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
   const [modalData, setModalData] = useState({ // Состояние данных модального окна
     image: "",
@@ -26,7 +26,6 @@ export default function BurgerIngredients(props) {
   const [mains, setMains] = useState([]);  // Состояние начинок
   const [ingredients, setIngredients] = useContext(Context); // Состояние ингридиентов
 
-  const data = props.data; // Даннве с сервера
   
   // Функция-обработчик открытия модального окна
   const handlerOpenPopup = (value) => {
@@ -39,13 +38,6 @@ export default function BurgerIngredients(props) {
     setModalVisible(false);
   };
 
-  useEffect(() => {
-    setIngredients(data);
-  }, [data]);
-
-  // useEffect(() => {
-  //   setNewIngredients(data);
-  // }, [data]);
 
   useEffect(() => {
     const bunsArray = ingredients.filter((bun) => {
@@ -158,7 +150,3 @@ export default function BurgerIngredients(props) {
     </>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
-};

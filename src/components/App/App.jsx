@@ -9,7 +9,6 @@ import { Context } from '../../services/Context'
 
 function App() {
   const [data, setData] = useState([]);
-  const ingridients = useState([]);
 
   useEffect(() => {
     fetchIngredients()
@@ -20,11 +19,11 @@ function App() {
   }, []);
 
   return (
-    <Context.Provider value={ingridients}>
+    <Context.Provider value={[data, setData]}>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngredients data={data} />
-        <BurgerConstructor data={data} />
+        <BurgerIngredients />
+        <BurgerConstructor />
       </main>
     </Context.Provider>
   );
