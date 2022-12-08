@@ -5,7 +5,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { fetchIngredients } from "../../utils/api";
 import { useContext, useEffect, useState } from "react";
-import { Context } from '../../services/Context'
+import { Context } from "../../services/Context";
 
 function App() {
   const [data, setData] = useState([]);
@@ -19,13 +19,15 @@ function App() {
   }, []);
 
   return (
-    <Context.Provider value={[data, setData]}>
+    <>
       <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
-    </Context.Provider>
+      <Context.Provider value={[data]}>
+        <main className={styles.main}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </main>
+      </Context.Provider>
+    </>
   );
 }
 

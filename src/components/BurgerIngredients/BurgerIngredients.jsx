@@ -24,7 +24,7 @@ export default function BurgerIngredients() {
   const [buns, setBuns] = useState([]); // Состояние булок
   const [sauces, setSauces] = useState([]); // Состояние соусов
   const [mains, setMains] = useState([]);  // Состояние начинок
-  const [ingredients, setIngredients] = useContext(Context); // Состояние ингридиентов
+  const [ingredients] = useContext(Context); // Состояние ингридиентов
 
   
   // Функция-обработчик открытия модального окна

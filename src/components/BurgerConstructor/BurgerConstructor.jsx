@@ -66,8 +66,8 @@ export default function BurgerConstructor() {
           return i.price;
         })
         .reduce((a, b) => a + b, 0);
-      const bunsCount = buns.slice(1)[0].price * 2;
-      setCost(count + bunsCount); // Изменение состояния счетчика
+      const bunsCost = buns.slice(1)[0].price * 2;
+      setCost(count + bunsCost); // Изменение состояния счетчика
       setSelectedIngredients(selectedItems); // рендер элементов конструктора
 
       const arrIds = selectedItems.map((id) => {
