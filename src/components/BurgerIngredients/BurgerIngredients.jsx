@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./BurgerIngredients.module.css";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsItem from "../BurgerIngredientsItem/BurgerIngredientsItem.jsx";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import Modal from "../Modal/Modal";
 import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
+import { Context } from '../../services/Context';
 
-function BurgerIngredients(props) {
+// Компонент 
+export default function BurgerIngredients() {
   const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
-  const [modalData, setModalData] = useState({
+  const [modalData, setModalData] = useState({ // Состояние данных модального окна
     image: "",
     fat: "",
     proteins: "",
@@ -20,25 +21,23 @@ function BurgerIngredients(props) {
     imageLarge: "",
   });
 
-  const [buns, setBuns] = useState([]);
-  const [sauces, setSauces] = useState([]);
-  const [mains, setMains] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
+  const [buns, setBuns] = useState([]); // Состояние булок
+  const [sauces, setSauces] = useState([]); // Состояние соусов
+  const [mains, setMains] = useState([]);  // Состояние начинок
+  const [ingredients] = useContext(Context); // Состояние ингридиентов
 
-  const data = props.data;
-
+  
+  // Функция-обработчик открытия модального окна
   const handlerOpenPopup = (value) => {
     setModalVisible(true);
     setModalData(value);
   };
 
+  // Функция-обработчик закрытия модального окна
   const handlerClosePopup = (value) => {
     setModalVisible(false);
   };
 
-  useEffect(() => {
-    setIngredients(data);
-  }, [data]);
 
   useEffect(() => {
     const bunsArray = ingredients.filter((bun) => {
@@ -70,6 +69,7 @@ function BurgerIngredients(props) {
         return sauce;
       }
     });
+
     const sauce = sauceArray.map((item) => (
       <BurgerIngredient
         onOpen={handlerOpenPopup}
@@ -93,6 +93,7 @@ function BurgerIngredients(props) {
         return main;
       }
     });
+
     const main = mainArray.map((item) => (
       <BurgerIngredient
         onOpen={handlerOpenPopup}
@@ -149,9 +150,3 @@ function BurgerIngredients(props) {
     </>
   );
 }
-
-export default BurgerIngredients;
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
-};

@@ -41,20 +41,3 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* 
-.link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  color: #F2F2F3;  
-}
-
-.link:first-child {
-  padding-left: 0;
-}
-
-.link:last-child {
-  position: absolute;
-  right: 0;
-} */

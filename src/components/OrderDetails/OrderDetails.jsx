@@ -3,10 +3,10 @@ import styles from "../OrderDetails/OrderDetails.module.css";
 
 import doneImage from "../../images/done.png";
 
-function OrderDetails() {
+function OrderDetails(props) {
   return (
     <section className={`${styles.section} mt-30 mb-30`}>
-      <h3 className="text text_type_digits-large mb-8">666666</h3>
+      <h3 className="text text_type_digits-large mb-8">{props.orderNum}</h3>
       <p className="text text_type_main-default mb-15">идентификатор заказа</p>
       <img src={doneImage} alt="Done" />
       <p className="text text_type_main-small mt-15 mb-2">
@@ -20,3 +20,11 @@ function OrderDetails() {
 }
 
 export default OrderDetails;
+
+// OrderDetails.PropTypes = {
+//   orderNum: PropTypes.string
+// };
+
+OrderDetails.propTypes = {
+  orderNum: PropTypes.number.isRequired,
+}; 
