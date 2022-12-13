@@ -25,7 +25,7 @@ function BurgerIngredient(props) {
       <Counter count={1} size="default" extraClass="m-1" />
       <img className={styles.image} src={props.image} alt={props.discription} />
       <p className="mt-1 mb-1">
-        <span className="text text_type_digits-medium mr-2">{props.value}</span>
+        <span className="text text_type_digits-defaultnpm mr-2">{props.value}</span>
         <CurrencyIcon type="primary" />
       </p>
       <p className={`${styles.paragraph} text text_type_main-default`}>

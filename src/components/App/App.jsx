@@ -1,32 +1,25 @@
 import styles from "./App.module.css";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import AppHeader from "../AppHeader/AppHeader.jsx";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { fetchIngredients } from "../../utils/api";
-import { useContext, useEffect, useState } from "react";
-import { Context } from "../../services/Context";
+import { getIngredients } from "../../services/actions/ingredientsActions";
 
 function App() {
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchIngredients()
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    getIngredients()
+  }, [dispatch]);
 
   return (
     <>
       <AppHeader />
-      <Context.Provider value={[data]}>
         <main className={styles.main}>
           <BurgerIngredients />
           <BurgerConstructor />
         </main>
-      </Context.Provider>
     </>
   );
 }

@@ -5,12 +5,12 @@ const config = {
   }
 }
 
-const fetchIngredients = () => {
+export const fetchIngredients = () => {
   return fetch(`${config.baseURL}ingredients`, config.headers)
     .then(checkRes)
 };
 
-const postOrder = (ingredientsId) => {
+export const postOrder = (ingredientsId) => {
   return fetch(`${config.baseURL}orders`, {
       method: 'POST',
       headers: {
@@ -29,9 +29,3 @@ const checkRes = (res) => {
   }
   return Promise.reject(`Ошибка: ${res.status}`);
 };
-
-export {
-  fetchIngredients,
-  postOrder
-};
-
