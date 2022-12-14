@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import styles from "../OrderDetails/OrderDetails.module.css";
-
 import doneImage from "../../images/done.png";
 
 function OrderDetails(props) {
@@ -21,10 +20,6 @@ function OrderDetails(props) {
 
 export default OrderDetails;
 
-// OrderDetails.PropTypes = {
-//   orderNum: PropTypes.string
-// };
-
 OrderDetails.propTypes = {
-  orderNum: PropTypes.number.isRequired,
-}; 
+  orderNum: PropTypes.number,
+};

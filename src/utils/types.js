@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
 const ingredientType = {
-  image: PropTypes.string.isRequired,
-  fat: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-  calories: PropTypes.number.isRequired,
-  discription: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  fat: PropTypes.number,
+  proteins: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  value: PropTypes.number,
+  calories: PropTypes.number,
+  discription: PropTypes.string,
 };
 
 export default ingredientType;

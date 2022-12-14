@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from "./BurgerIngredientsItem.module.css";
 
+
 function BurgerIngredientsItem(props) {
   return (
     <li className={ styles.list_item }>
