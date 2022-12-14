@@ -7,107 +7,7 @@ import Modal from "../Modal/Modal";
 import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
 import { useSelector, useDispatch } from "react-redux";
 
-// Компонент
 export default function BurgerIngredients() {
-  // const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
-  // const [modalData, setModalData] = useState({ // Состояние данных модального окна
-  //   image: "",
-  //   fat: "",
-  //   proteins: "",
-  //   calories: "",
-  //   carbohydrates: "",
-  //   name: "",
-  //   imageLarge: "",
-  // });
-
-  // const [buns, setBuns] = useState([]); // Состояние булок
-  // const [sauces, setSauces] = useState([]); // Состояние соусов
-  // const [mains, setMains] = useState([]);  // Состояние начинок
-  // const [ingredients] = useContext(Context); // Состояние ингридиентов
-
-  // // Функция-обработчик открытия модального окна
-  // const handlerOpenPopup = (value) => {
-  //   setModalVisible(true);
-  //   setModalData(value);
-  // };
-
-  // // Функция-обработчик закрытия модального окна
-  // const handlerClosePopup = (value) => {
-  //   setModalVisible(false);
-  // };
-
-  // useEffect(() => {
-  //   const bunsArray = ingredients.filter((bun) => {
-  //     if (bun.type === "bun") {
-  //       return bun;
-  //     }
-  //   });
-
-  //   const buns = bunsArray.map((item) => (
-  //     <BurgerIngredient
-  //       onOpen={handlerOpenPopup}
-  //       image={item.image}
-  //       imageLarge={item.image_large}
-  //       fat={item.fat}
-  //       proteins={item.proteins}
-  //       calories={item.calories}
-  //       carbohydrates={item.carbohydrates}
-  //       value={item.price}
-  //       discription={item.name}
-  //       key={item._id}
-  //     />
-  //   ));
-  //   setBuns(buns);
-  // }, [ingredients]);
-
-  // useEffect(() => {
-  //   const sauceArray = ingredients.filter((sauce) => {
-  //     if (sauce.type === "sauce") {
-  //       return sauce;
-  //     }
-  //   });
-
-  //   const sauce = sauceArray.map((item) => (
-  //     <BurgerIngredient
-  //       onOpen={handlerOpenPopup}
-  //       image={item.image}
-  //       imageLarge={item.image_large}
-  //       fat={item.fat}
-  //       proteins={item.proteins}
-  //       calories={item.calories}
-  //       carbohydrates={item.carbohydrates}
-  //       value={item.price}
-  //       discription={item.name}
-  //       key={item._id}
-  //     />
-  //   ));
-  //   setSauces(sauce);
-  // }, [ingredients]);
-
-  // useEffect(() => {
-  //   const mainArray = ingredients.filter((main) => {
-  //     if (main.type === "main") {
-  //       return main;
-  //     }
-  //   });
-
-  //   const main = mainArray.map((item) => (
-  //     <BurgerIngredient
-  //       onOpen={handlerOpenPopup}
-  //       image={item.image}
-  //       imageLarge={item.image_large}
-  //       fat={item.fat}
-  //       proteins={item.proteins}
-  //       calories={item.calories}
-  //       carbohydrates={item.carbohydrates}
-  //       value={item.price}
-  //       discription={item.name}
-  //       key={item._id}
-  //     />
-  //   ));
-  //   setMains(main);
-  // }, [ingredients]);
-
   const [sauces, setSauces] = useState([]);
   const [mains, setMains] = useState([]);
   const [buns, setBuns] = useState([]);
@@ -123,7 +23,6 @@ export default function BurgerIngredients() {
   const [mainsCategoryActive, setMainsCategoryActive] = useState(false);
   const [saucesCategoryActive, setSaucesCategoryActive] = useState(false);
 
-  //Изменения состояния активности модального окна через dispatch
   const handlerModalOpen = (value) => {
     dispatch({ type: "OPEN_INGREDIENT_MODAL", payload: value });
   };
@@ -209,7 +108,6 @@ export default function BurgerIngredients() {
 
   const [categories, setCategories] = useState();
 
-  //Функция переключения состояний кнопок при скролле
   useEffect(() => {
     setCategories(document.getElementById("categories"));
     function check() {

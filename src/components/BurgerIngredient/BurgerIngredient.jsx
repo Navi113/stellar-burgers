@@ -25,8 +25,8 @@ function BurgerIngredient(props) {
   }, [props.ingredient]);
 
   useEffect(() => {
-    const coincidences = idsArr.filter((i) => i === props.id);
-    setCount(coincidences.length);
+    const agreementscidences = idsArr.filter((i) => i === props.id);
+    setCount(agreementscidences.length);
   }, [idsArr]);
 
   const handlerModalOpen = () => {
