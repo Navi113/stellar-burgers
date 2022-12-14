@@ -21,6 +21,10 @@ function OrderDetails(props) {
 
 export default OrderDetails;
 
+// OrderDetails.PropTypes = {
+//   orderNum: PropTypes.string
+// };
+
 OrderDetails.propTypes = {
   orderNum: PropTypes.number.isRequired,
 }; 

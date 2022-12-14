@@ -34,7 +34,7 @@ export default function BurgerIngredients() {
   };
 
   // Функция-обработчик закрытия модального окна
-  const handlerClosePopup = () => {
+  const handlerClosePopup = (value) => {
     setModalVisible(false);
   };
 
