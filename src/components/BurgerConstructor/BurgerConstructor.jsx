@@ -1,158 +1,174 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./BurgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { Context } from "../../services/Context";
 import { postOrder } from "../../utils/api";
+import { setDraggedIngredients } from "../../services/actions/orderAction";
+import { setOrderIdsArr } from "../../services/actions/orderDetailsAction";
+import { useDispatch, useSelector } from "react-redux";
+import { uuidv4 } from "../../utils/utils";
+import { useDrop } from "react-dnd/dist/hooks";
+import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstructorElement";
 
 export default function BurgerConstructor() {
-  const [ingredients] = useContext(Context);
-  const [elements, setElements] = useState([]);
-  const [selectedIngredients, setSelectedIngredients] = useState([]); // Состояние выбранных
-  const [buns, setBuns] = useState([]); // Состояние булок
-  const [sauces, setSauces] = useState([]); // Состояние соусов
-  const [mains, setMains] = useState([]); // Состояние начинок
-  const [modalVisible, setModalVisible] = useState(false); // Состояние модального окна
-  const [orderNumber, setOrdernumber] = useState([]); // Состояние номера заказа в модальном окне
-  const [cost, setCost] = useState(); // Состояние итоговой стоимости заказа
-  // Обработчики
-  const handleOpenPopup = () => setModalVisible(true);
-  const handleClosePopup = () => setModalVisible(false);
-
-  function checkData() {
-    if (ingredients.length === 0) {
-      return;
-    } else {
-      const saucesArray = ingredients.filter((item) => {
-        if (item.type === "sauce") {
-          return item;
-        }
-      });
-
-      setSauces(saucesArray);
-
-      const mainsArray = ingredients.filter((item) => {
-        if (item.type === "main") {
-          return item;
-        }
-      });
-
-      setMains(mainsArray);
-
-      const bunsArray = ingredients.filter((item) => {
-        if (item.type === "bun") {
-          return item;
-        }
-      });
-
-      setBuns(bunsArray);
-    }
-  }
-
-  const setArrays = useMemo(checkData, [ingredients]);
+  const dispatch = useDispatch();
+  const orderNumber = useSelector(state => state.orderDetails.orderNumber);
+  const ingredients = useSelector(state => state.ingredients.ingredients);
+  const modalVisible = useSelector(state => state.orderDetails.openOrderModal);
+  const storeDragIngredients = useSelector(state => state.order.dragIngredients);
+  const [ingredientsIds, setingredientsIds] = useState([]);
+  const [draggedElements, setDraggedElements] = useState([]);
+  const [selectedingredients, setSelectedingredients] = useState([]);
+  const [draggedBun, setDraggedBun] = useState([]);
+  const [ingredientsPrice, setIngredientsPrice] = useState(0);
+  const [bunPrice, setBunPrice] = useState(0);
 
   useEffect(() => {
-    if (sauces.length === 0) {
+    dispatch(setDraggedIngredients(draggedElements));
+  }, [draggedElements]);
+  useEffect(() => {
+    setDraggedElements(storeDragIngredients);
+  }, [storeDragIngredients]);
+
+  const handleDrop = (data) => {
+    if (data.type === "sauce" || data.type === "main") {
+      setDraggedElements([
+        ...draggedElements,
+        ...ingredients.filter((element) => element._id === data.id),
+      ]);
+    } else if (data.type === "bun") {
+      setDraggedBun([
+        ...ingredients.filter((element) => element._id === data.id),
+      ]);
+      return;
+    }
+  };
+
+  const [, drop] = useDrop({
+    accept: "dropped",
+    drop(data) {
+      handleDrop(data);
+    },
+  });
+
+  const getOrderNumber = () => {
+    if (ingredientsIds.length === 0) {
       return;
     } else {
-      const selectedItems = sauces.concat(mains); // Сложение двух массивов
-      const count = selectedItems
-        .map((i) => {
-          return i.price;
-        })
-        .reduce((a, b) => a + b, 0);
-      const bunsCost = buns.slice(1)[0].price * 2;
-      setCost(count + bunsCost); // Изменение состояния счетчика
-      setSelectedIngredients(selectedItems); // рендер элементов конструктора
-
-      const arrIds = selectedItems.map((id) => {
-        return id._id;
+      postOrder(ingredientsIds).then((res) => {
+        dispatch({ type: "GET_ORDER_NUMBER", payload: res.order.number });
       });
-
-      postOrder(arrIds)
-        .then((res) => {
-          setOrdernumber(res.order.number);
-        })
-        .catch(() => {
-          console.log("Id не получены");
-        });
     }
-  }, [sauces]);
+  };
 
   useEffect(() => {
-    const elements = selectedIngredients.map((item) => (
-      <li className={`${styles.item} mb-4 mr-2`} key={item._id}>
-        <DragIcon />
+    const ingredientsIdsArr = storeDragIngredients.map((i) => {
+      return i._id;
+    });
+
+    const bunIdsArr = draggedBun.map((i) => {
+      return i._id;
+    });
+
+    const sumIds = bunIdsArr.concat(ingredientsIdsArr, bunIdsArr);
+
+    setingredientsIds(sumIds);
+
+    const keys = storeDragIngredients.map(i => uuidv4())
+    console.log(keys)
+
+    setSelectedingredients(
+      storeDragIngredients.map((i, index) => (
+        <BurgerConstructorElement data={i} index={index} key={keys[index]} />
+      ))
+    );
+  }, [storeDragIngredients, draggedBun]);
+
+  useEffect(() => {
+    dispatch(setOrderIdsArr(ingredientsIds));
+  }, [ingredientsIds]);
+
+  const setBottomBun = () => {
+    if (draggedBun.length === 0) {
+      return;
+    } else {
+      return (
         <ConstructorElement
-          text={item.name}
-          thumbnail={item.image}
-          isLocked={false}
-          price={item.price}
+          type="bottom"
+          isLocked={true}
+          text={draggedBun[0].name + "(низ)"}
+          price={draggedBun[0].price}
+          thumbnail={draggedBun[0].image}
+          key={1}
         />
-      </li>
-    ));
-    setElements(elements);
-  }, [selectedIngredients]);
+      );
+    }
+  };
 
-  function selectTopBun() {
-    return(
-        buns.filter((i, index) => index === 1)
-        .map((i) => (
-          <div key="1">
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={i.name + " (верх)"}
-              price={i.price}
-              thumbnail={i.image}
-            />
-          </div>
-        ))
-    )
-  }
+  const setTopBun = () => {
+    if (draggedBun.length === 0) {
+      return;
+    } else {
+      return (
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={draggedBun[0].name + "(верх)"}
+          price={draggedBun[0].price}
+          thumbnail={draggedBun[0].image}
+          key={1}
+        />
+      );
+    }
+  };
 
-  function selectBottomBun() {
-    return(
-        buns.filter((i, index) => index === 1)
-        .map((i) => (
-          <div key="1">
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={i.name + " (низ)"}
-              price={i.price}
-              thumbnail={i.image}
-            />
-          </div>
-        ))
-    )
-  }
+  const bottomBun = useMemo(setBottomBun, [draggedBun]);
+  const topBun = useMemo(setTopBun, [draggedBun]);
 
+  useEffect(() => {
+    const sum = storeDragIngredients
+      .map((i) => i.price)
+      .reduce((a, b) => a + b, 0);
+    setIngredientsPrice(sum);
+  }, [storeDragIngredients]);
 
-  const topBun = useMemo(selectTopBun, [buns])
-  const bottomBun =useMemo(selectBottomBun, [buns])
+  useEffect(() => {
+    if (draggedBun.length > 0) {
+      const sum = draggedBun[0].price * 2;
+      setBunPrice(sum);
+    } else {
+      return;
+    }
+  }, [draggedBun]);
+
+  const handlerModalOpen = () => {
+    getOrderNumber();
+    dispatch({ type: "OPEN_ORDER_MODAL" });
+  };
+
+  const handlerModalClose = () => {
+    dispatch({ type: "CLOSE_ORDER_MODAL" });
+  };
 
   return (
     <>
       <section className={`${styles.section} pt-25 pl-4`}>
-        <div className={"pl-8 pt-25 mb-4"}>
-          {topBun}
-        </div>
-        <ul className={`${styles.list} mr-10`}>{elements}</ul>
-        <div className={"pl-8 mt-4 mb-10"}>
-          {bottomBun}
-        </div>
+        <div className={"pl-8 pt-25 mb-4"}>{topBun}</div>
+        <ul ref={drop} className={`${styles.list} mr-10`}>
+          {selectedingredients}
+        </ul>
+        <div className={"pl-8 mt-4 mb-10"}>{bottomBun}</div>
 
         <div className={styles.info}>
-          <p className="text text_type_digits-medium mr-1">{cost}</p>
+          <p className="text text_type_digits-medium mr-1">
+            {ingredientsPrice + bunPrice}
+          </p>
           <CurrencyIcon type="primary" />
           <Button
-            onClick={handleOpenPopup}
+            onClick={handlerModalOpen}
             htmlType="button"
             type="primary"
             size="large"
@@ -163,7 +179,7 @@ export default function BurgerConstructor() {
         </div>
       </section>
       {modalVisible && (
-        <Modal onClose={handleClosePopup}>
+        <Modal onClose={handlerModalClose}>
           <OrderDetails orderNum={orderNumber} />
         </Modal>
       )}

@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 import styles from "../IngredientsDetails/IngredientsDetails.module.css";
 
 function IngredientsDetails(props) {

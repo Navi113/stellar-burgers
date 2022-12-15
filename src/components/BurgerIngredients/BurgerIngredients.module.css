@@ -4,7 +4,6 @@
   height: 800px;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid salmon; */
 }
 
 .title {
@@ -13,25 +12,23 @@
 
 .tabs {
   display: flex;
-  /* border: 1px solid salmon; */
 }
 
-.ingridients {
+.ingredients {
   padding: 0;
   margin-bottom: 0;
   overflow: hidden;
   overflow-y: scroll;
-  /* border: 1px solid yellow; */
 }
 
-.ingridients::-webkit-scrollbar {
-  width: 8px;               /* ширина scrollbar */
+.ingredients::-webkit-scrollbar {
+  width: 8px; /* ширина scrollbar */
 }
 
-.ingridients::-webkit-scrollbar-track {
-  background: #2F2F37;;        /* цвет дорожки */
+.ingredients::-webkit-scrollbar-track {
+  background: #2f2f37; /* цвет дорожки */
 }
 
-.ingridients::-webkit-scrollbar-thumb {
-  background-color: #8585AD;;    /* цвет плашки */
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: #8585ad; /* цвет плашки */
 }

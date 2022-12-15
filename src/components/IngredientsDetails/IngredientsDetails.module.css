@@ -9,12 +9,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border: 1px solid salmon; */
 }
 
 .info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid darkcyan; */
 }

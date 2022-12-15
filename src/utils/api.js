@@ -34,4 +34,3 @@ export {
   fetchIngredients,
   postOrder
 };
-

@@ -14,15 +14,15 @@
 }
 
 .list::-webkit-scrollbar {
-  width: 8px;               /* ширина scrollbar */
+  width: 8px; /* ширина scrollbar */
 }
 
 .list::-webkit-scrollbar-track {
-  background: #2F2F37;;        /* цвет дорожки */
+  background: #2f2f37; /* цвет дорожки */
 }
 
 .list::-webkit-scrollbar-thumb {
-  background-color: #8585AD;;    /* цвет плашки */
+  background-color: #8585ad; /* цвет плашки */
 }
 
 .item {
