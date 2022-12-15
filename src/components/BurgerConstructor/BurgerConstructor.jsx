@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./BurgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,15 +14,11 @@ import { useDrop } from "react-dnd/dist/hooks";
 import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstructorElement";
 
 export default function BurgerConstructor() {
-  const orderNumber = useSelector((state) => state.orderDetails.orderNumber);
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const modalVisible = useSelector(
-    (state) => state.orderDetails.openOrderModal
-  );
-  const storeDragIngredients = useSelector(
-    (state) => state.order.dragIngredients
-  );
   const dispatch = useDispatch();
+  const orderNumber = useSelector(state => state.orderDetails.orderNumber);
+  const ingredients = useSelector(state => state.ingredients.ingredients);
+  const modalVisible = useSelector(state => state.orderDetails.openOrderModal);
+  const storeDragIngredients = useSelector(state => state.order.dragIngredients);
   const [ingredientsIds, setingredientsIds] = useState([]);
   const [draggedElements, setDraggedElements] = useState([]);
   const [selectedingredients, setSelectedingredients] = useState([]);
@@ -41,11 +37,11 @@ export default function BurgerConstructor() {
     if (data.type === "sauce" || data.type === "main") {
       setDraggedElements([
         ...draggedElements,
-        ...ingredients.filter((element) => element._id === data.id), 
+        ...ingredients.filter((element) => element._id === data.id),
       ]);
     } else if (data.type === "bun") {
       setDraggedBun([
-        ...ingredients.filter((element) => element._id === data.id), 
+        ...ingredients.filter((element) => element._id === data.id),
       ]);
       return;
     }
@@ -57,7 +53,6 @@ export default function BurgerConstructor() {
       handleDrop(data);
     },
   });
-
 
   const getOrderNumber = () => {
     if (ingredientsIds.length === 0) {
@@ -73,14 +68,21 @@ export default function BurgerConstructor() {
     const ingredientsIdsArr = storeDragIngredients.map((i) => {
       return i._id;
     });
+
     const bunIdsArr = draggedBun.map((i) => {
       return i._id;
     });
+
     const sumIds = bunIdsArr.concat(ingredientsIdsArr, bunIdsArr);
+
     setingredientsIds(sumIds);
+
+    const keys = storeDragIngredients.map(i => uuidv4())
+    console.log(keys)
+
     setSelectedingredients(
       storeDragIngredients.map((i, index) => (
-        <BurgerConstructorElement data={i} index={index} key={uuidv4()} />
+        <BurgerConstructorElement data={i} index={index} key={keys[index]} />
       ))
     );
   }, [storeDragIngredients, draggedBun]);
@@ -144,13 +146,12 @@ export default function BurgerConstructor() {
 
   const handlerModalOpen = () => {
     getOrderNumber();
-    dispatch({ type: "OPEN_ORDER_MODAL" }); 
+    dispatch({ type: "OPEN_ORDER_MODAL" });
   };
 
   const handlerModalClose = () => {
     dispatch({ type: "CLOSE_ORDER_MODAL" });
   };
-
 
   return (
     <>

@@ -8,20 +8,17 @@ import IngredientsDetails from "../IngredientsDetails/IngredientsDetails";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function BurgerIngredients() {
+  const dispatch = useDispatch();
   const [sauces, setSauces] = useState([]);
   const [mains, setMains] = useState([]);
   const [buns, setBuns] = useState([]);
-  const dispatch = useDispatch();
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const modalOpen = useSelector(
-    (state) => state.ingredientDetails.openingredientModal
-  );
-  const modalDetail = useSelector(
-    (state) => state.ingredientDetails.modalDetails
-  );
+  const ingredients = useSelector(state => state.ingredients.ingredients);
+  const modalOpen = useSelector(state => state.ingredientDetails.openingredientModal);
+  const modalDetail = useSelector(state => state.ingredientDetails.modalDetails);
   const [bunsCategoryActive, setBunsCategoryActive] = useState(true);
   const [mainsCategoryActive, setMainsCategoryActive] = useState(false);
   const [saucesCategoryActive, setSaucesCategoryActive] = useState(false);
+  const [categories, setCategories] = useState();
 
   const handlerModalOpen = (value) => {
     dispatch({ type: "OPEN_INGREDIENT_MODAL", payload: value });
@@ -37,6 +34,7 @@ export default function BurgerIngredients() {
         return ingredient;
       }
     });
+
     const sauces = saucesArr.map((i) => (
       <BurgerIngredient
       image={i.image}
@@ -62,6 +60,7 @@ export default function BurgerIngredients() {
         return ingredient;
       }
     });
+
     const mains = mainsArr.map((i) => (
       <BurgerIngredient
       image={i.image}
@@ -87,6 +86,7 @@ export default function BurgerIngredients() {
         return ingredient;
       }
     });
+
     const buns = bunsArr.map((i) => (
       <BurgerIngredient
       image={i.image}
@@ -105,8 +105,6 @@ export default function BurgerIngredients() {
     ));
     setBuns(buns);
   }, [ingredients]);
-
-  const [categories, setCategories] = useState();
 
   useEffect(() => {
     setCategories(document.getElementById("categories"));

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setDraggedIngredients } from "../../services/actions/orderAction";
 import { uuidv4 } from "../../utils/utils";
 
-export default function BurgerConstructorElement({ data, index }) {
+export default function BurgerConstructorElement({ data, index}) {
   const dispatch = useDispatch();
   const hoverIndex = index;
   const storeDragIngredients = useSelector(

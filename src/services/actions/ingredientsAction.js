@@ -13,9 +13,7 @@ export function getIngredients() {
       type: GET_MENU_REQUEST,
     });
     fetchIngredients()
-      .then(({
-        data
-      }) => {
+      .then(({data}) => {
         dispatch({
           type: GET_MENU_REQUEST_SUCCESS,
           items: data,
