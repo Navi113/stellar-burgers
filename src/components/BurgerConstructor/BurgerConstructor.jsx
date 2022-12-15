@@ -83,6 +83,7 @@ export default function BurgerConstructor() {
         <BurgerConstructorElement data={i} index={index} key={uuidv4()} />
       ))
     );
+    console.log(i._id);
   }, [storeDragIngredients, draggedBun]);
 
   useEffect(() => {
